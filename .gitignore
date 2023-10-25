@@ -1,6 +1,7 @@
 # User-specific stuff
 # ...
 .env
+example_new.py
 
 # Idea
 .idea
