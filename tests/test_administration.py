@@ -6,7 +6,7 @@ from garage_api.schemas.garage import administration
 
 def test_administration(token):
     headers = {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token[0]
     }
     response = garage().get('/administration/create_dataset',
                             headers=headers,

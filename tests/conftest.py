@@ -1,6 +1,6 @@
 import pytest
 
-from garage_api.utils.sessions import garage
+from garage_api.utils.sessions import garage_authorization
 from dotenv import dotenv_values, load_dotenv
 
 
@@ -21,7 +21,8 @@ def token():
         "username": username,
         "password": password
     }
-    responce = garage().post(f'/user/login/',
-                             data=payload)
-    token = responce.json()['access']
-    return token
+    response = garage_authorization().post(f'/user/login/',
+                                           data=payload)
+    token = response.json()['access']
+    refresh_token = response.json()['refresh']
+    return token, refresh_token
