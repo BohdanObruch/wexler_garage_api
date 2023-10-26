@@ -47,15 +47,15 @@ cars_list = Schema({
             "car_owner": {
                 "id": int,
                 "passport_number": int,
-                "first_name": str,
-                "last_name": str,
-                "email": str,
-                "age": int,
-                "city": str
+                "first_name": Any(str, None),
+                "last_name": Any(str, None),
+                "email": Any(str, None),
+                "age": Any(int, None),
+                "city": Any(str, None)
             },
             "plate_number": str,
-            "brand": str,
-            "model": str,
+            "brand": Any(str, None),
+            "model": Any(str, None),
             "engine_number": str
         }
     ]
@@ -85,4 +85,31 @@ car_info = Schema({
     "brand": Any(str, None),
     "model": Any(str, None),
     "engine_number": Any(str, None)
+})
+
+customers_list = Schema({
+    "count": int,
+    "next": Any(str, None),
+    "previous": Any(str, None),
+    "results": [
+        {
+            "id": int,
+            "passport_number": int,
+            "first_name": Any(str, None),
+            "last_name": Any(str, None),
+            "email": Any(str, None),
+            "age": Any(int, None),
+            "city": Any(str, None)
+        }
+    ]
+})
+
+customer = Schema({
+    "id": int,
+    "passport_number": int,
+    "first_name": Any(str, None),
+    "last_name": Any(str, None),
+    "email": Any(str, None),
+    "age": Any(int, None),
+    "city": Any(str, None)
 })

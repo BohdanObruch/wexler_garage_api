@@ -69,9 +69,9 @@ class TestCarEngines:
         assert response.json()['production_year'] == data['production_year']
 
     def test_partial_update_car_engines(self, token):
-        data = generate_random_car_engines()
-        engine_number = data['engine_number']
-        volume = data['volume']
+        random_data = generate_random_car_engines()
+        engine_number = random_data['engine_number']
+        volume = random_data['volume']
         random_id = random_car_engines_id(token)
 
         data = {

@@ -75,3 +75,36 @@ def random_car_id(token):
         list_id.append(i["id"])
     random_id = random.choice(list_id)
     return random_id
+
+
+def generate_random_customers():
+    passport_number = random.randint(10000000, 99999999)
+    first_name = fake.first_name()
+    last_name = fake.last_name()
+    email = fake.email()
+    age = random.randint(18, 100)
+    city = fake.city()
+
+    data = {
+        "passport_number": passport_number,
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+        "age": age,
+        "city": city
+    }
+    return data
+
+
+def random_customer_id(token):
+    headers = {
+        'Authorization': 'Bearer ' + token[0]
+    }
+    response = garage().get('/customers/',
+                            headers=headers,
+                            )
+    list_id = []
+    for i in response.json()["results"]:
+        list_id.append(i["id"])
+    random_id = random.choice(list_id)
+    return random_id
