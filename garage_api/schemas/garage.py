@@ -123,3 +123,33 @@ root = Schema({
     "payments": str
 })
 
+payments_list = Schema({
+    "count": int,
+    "next": Any(str, None),
+    "previous": Any(str, None),
+    "results": [
+        {
+            "id": Any(int, None),
+            "amount": Any(str, None),
+            "currency": Any(str, None),
+            "timestamp": Any(str, None),
+            "InvId": Any(str, None),
+            "trsid": Any(str, None),
+            "custom": Any(str, None),
+            "signature": Any(str, None),
+            "status": Any(str, None)
+        }
+    ]
+})
+
+payments = Schema({
+    "id": int,
+    "amount": str,
+    "currency": str,
+    "timestamp": str,
+    "InvId": str,
+    "trsid": str,
+    "custom": str,
+    "signature": Any(str, None),
+    "status": str
+})

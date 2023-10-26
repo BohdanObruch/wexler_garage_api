@@ -108,3 +108,39 @@ def random_customer_id(token):
         list_id.append(i["id"])
     random_id = random.choice(list_id)
     return random_id
+
+
+def generate_random_payments():
+    amount = round(random.uniform(10.00, 99.00), 2)
+    amount = f"{amount:.2f}"
+
+    currency = random.choice(["USD", "TRY", "EUR", "GBP", "CNY"])
+    inv_id = str(random.randint(1, 999))
+    trs_id = ''.join(
+        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(10))
+    custom = fake.sentence(nb_words=2)
+    signature = ''.join(
+        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(15))
+    status = random.choice(["SUCCESS", "IN PROGRESS", "FAILED"])
+
+    data = {
+        "amount": amount,
+        "currency": currency,
+        "InvId": inv_id,
+        "trsid": trs_id,
+        "custom": custom,
+        "signature": signature,
+        "status": status
+    }
+    return data
+
+
+def random_payments_id(token):
+    response = garage().get('/payments/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_id = []
+        for i in response.json()["results"]:
+            list_id.append(i["id"])
+        random_id = random.choice(list_id)
+        return random_id
