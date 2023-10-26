@@ -113,3 +113,13 @@ customer = Schema({
     "age": Any(int, None),
     "city": Any(str, None)
 })
+
+root = Schema({
+    "cars": str,
+    "car_engines": str,
+    "customers": str,
+    "operations": str,
+    "services": str,
+    "payments": str
+})
+
