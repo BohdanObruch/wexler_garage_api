@@ -2,7 +2,7 @@ from garage_api.data.fake_data import generate_random_car_engines
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
 from garage_api.schemas.garage import car_engines_list, car_engines
-from garage_api.model.car_engines import list_car_engines
+from garage_api.model.car_engines import random_car_engines_id
 
 
 class TestCarEngines:
@@ -46,7 +46,7 @@ class TestCarEngines:
         assert response.json()['production_year'] == data['production_year']
 
     def test_details_by_random_engine_number(self, token):
-        random_id = list_car_engines(token)
+        random_id = random_car_engines_id(token)
         response = garage().get(f'/car_engines/{random_id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]})
         assert response.status_code == 200
@@ -55,7 +55,7 @@ class TestCarEngines:
 
     def test_update_car_engines(self, token):
         data = generate_random_car_engines()
-        random_id = list_car_engines(token)
+        random_id = random_car_engines_id(token)
 
         response = garage().put(f'/car_engines/{random_id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]},
@@ -72,7 +72,7 @@ class TestCarEngines:
         data = generate_random_car_engines()
         engine_number = data['engine_number']
         volume = data['volume']
-        random_id = list_car_engines(token)
+        random_id = random_car_engines_id(token)
 
         data = {
             "engine_number": engine_number,
@@ -88,7 +88,7 @@ class TestCarEngines:
         assert response.json()['volume'] == data['volume']
 
     def test_delete_car_engines(self, token):
-        random_id = list_car_engines(token)
+        random_id = random_car_engines_id(token)
         response = garage().delete(f'/car_engines/{random_id}/',
                                    headers={'Authorization': 'Bearer ' + token[0]})
         assert response.status_code == 204

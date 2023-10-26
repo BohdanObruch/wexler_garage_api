@@ -2,7 +2,7 @@ import random
 from garage_api.utils.sessions import garage
 
 
-def list_car_engines(token):
+def random_car_engines_id(token):
     headers = {
         'Authorization': 'Bearer ' + token[0]
     }
@@ -14,4 +14,3 @@ def list_car_engines(token):
         list_id.append(i["id"])
     random_id = random.choice(list_id)
     return random_id
-

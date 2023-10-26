@@ -36,3 +36,53 @@ car_engines = Schema({
     "origin": Any(str, None),
     "production_year": Any(int, None),
 })
+
+cars_list = Schema({
+    "count": int,
+    "next": Any(str, None),
+    "previous": Any(str, None),
+    "results": [
+        {
+            "id": int,
+            "car_owner": {
+                "id": int,
+                "passport_number": int,
+                "first_name": str,
+                "last_name": str,
+                "email": str,
+                "age": int,
+                "city": str
+            },
+            "plate_number": str,
+            "brand": str,
+            "model": str,
+            "engine_number": str
+        }
+    ]
+})
+
+car = Schema({
+    "id": int,
+    "plate_number": str,
+    "brand": Any(str, None),
+    "model": Any(str, None),
+    "engine_number": Any(str, None),
+    "car_owner": int
+})
+
+car_info = Schema({
+    "id": int,
+    "car_owner": {
+        "id": int,
+        "passport_number": int,
+        "first_name": Any(str, None),
+        "last_name": Any(str, None),
+        "email": Any(str, None),
+        "age": int,
+        "city": Any(str, None)
+    },
+    "plate_number": str,
+    "brand": Any(str, None),
+    "model": Any(str, None),
+    "engine_number": Any(str, None)
+})

@@ -1,0 +1,102 @@
+from garage_api.data.fake_data import generate_random_cars, random_car_id
+from garage_api.schemas.garage import cars_list, car, car_info
+from garage_api.utils.sessions import garage
+from pytest_voluptuous import S
+
+
+class TestCars:
+    def test_list_cars(self, token):
+        response = garage().get('/cars/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                )
+        assert response.status_code == 200
+        assert S(cars_list) == response.json()
+        assert response.json()['count'] == len(response.json()['results'])
+
+    def test_create_cars_post(self, token):
+        data = generate_random_cars(token)
+        response = garage().post('/cars/',
+                                 headers={'Authorization': 'Bearer ' + token[0]},
+                                 data=data
+                                 )
+
+        assert response.status_code == 201
+        assert S(car) == response.json()
+        assert response.json()['plate_number'] == data['plate_number']
+        assert response.json()['brand'] == data['brand']
+        assert response.json()['model'] == data['model']
+        assert response.json()['engine_number'] == data['engine_number']
+        assert response.json()['car_owner'] == data['car_owner']
+
+    def test_create_cars_put(self, token):
+        data = generate_random_cars(token)
+        response = garage().put('/cars/put/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                data=data
+                                )
+
+        assert response.status_code == 201
+        assert S(car) == response.json()
+        assert response.json()['plate_number'] == data['plate_number']
+        assert response.json()['brand'] == data['brand']
+        assert response.json()['model'] == data['model']
+        assert response.json()['engine_number'] == data['engine_number']
+        assert response.json()['car_owner'] == data['car_owner']
+
+    def test_details_by_random_car(self, token):
+        car_id = random_car_id(token)
+        response = garage().get(f'/cars/{car_id}/',
+                                headers={'Authorization': 'Bearer ' + token[0]})
+        assert response.status_code == 200
+        assert S(car_info) == response.json()
+        assert response.json()['id'] == car_id
+
+    def test_update_cars(self, token):
+        data = generate_random_cars(token)
+        car_id = random_car_id(token)
+
+        response = garage().put(f'/cars/{car_id}/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                data=data
+                                )
+
+        assert response.status_code == 200
+        assert S(car) == response.json()
+        assert response.json()['id'] == car_id
+        assert response.json()['plate_number'] == data['plate_number']
+        assert response.json()['brand'] == data['brand']
+        assert response.json()['model'] == data['model']
+        assert response.json()['engine_number'] == data['engine_number']
+        assert response.json()['car_owner'] == data['car_owner']
+
+    def test_partial_update_cars(self, token):
+        random_data = generate_random_cars(token)
+        plate_number = random_data['plate_number']
+        model = random_data['model']
+        car_owner = random_data['car_owner']
+        data = {
+            "plate_number": plate_number,
+            "model": model,
+            "car_owner": car_owner
+        }
+        car_id = random_car_id(token)
+
+        response = garage().put(f'/cars/{car_id}/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                data=data
+                                )
+
+        assert response.status_code == 200
+        assert S(car) == response.json()
+        assert response.json()['id'] == car_id
+        assert response.json()['plate_number'] == data['plate_number']
+        assert response.json()['model'] == data['model']
+        assert response.json()['car_owner'] == data['car_owner']
+
+    def test_delete_cars(self, token):
+        car_id = random_car_id(token)
+        response = garage().delete(f'/cars/{car_id}/',
+                                   headers={'Authorization': 'Bearer ' + token[0]},
+                                   )
+        assert response.status_code == 204
+        assert response.content == b''
