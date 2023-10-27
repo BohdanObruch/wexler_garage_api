@@ -103,3 +103,12 @@ class TestServices:
         assert response.status_code == 200
         assert S(discont_service) == response.json()
         assert response.json()[0]['id'] == id
+
+    def test_apply_discounts_for_all_services(self, token):
+        discount = generate_discount()
+        response = garage().get(f'/services/apply_discounts/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                params=discount
+                                )
+        assert response.status_code == 200
+        assert S(discont_service) == response.json()

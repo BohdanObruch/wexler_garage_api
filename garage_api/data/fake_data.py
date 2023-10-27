@@ -121,7 +121,7 @@ def generate_random_payments():
     custom = fake.sentence(nb_words=2)
     signature = ''.join(
         random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(15))
-    status = random.choice(["SUCCESS", "IN PROGRESS", "FAILED"])
+    status = "SUCCESS"
 
     data = {
         "amount": amount,
@@ -151,7 +151,7 @@ def generate_random_operations(token):
     service = random_service_id(token)
     payment = random_payments_id(token)
     amount = round(random.uniform(10.00, 99.00), 2)
-    operation_status = random.choice(["started", "in progress", "finished"])
+    operation_status = random.choice(["started", "in progress"])
     price = f"{amount:.2f}"
 
     data = {
@@ -192,3 +192,42 @@ def generate_discount():
         "discount": discount
     }
     return data
+
+
+def random_operations_id(token):
+    response = garage().get('/operations/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_id = []
+        for i in response.json()["results"]:
+            list_id.append(i["id"])
+        random_id = random.choice(list_id)
+        return random_id
+
+
+def operations_is_not_finish(token):
+    response = garage().get('/operations/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_id = []
+        for i in response.json()["results"]:
+            if i["operation_status"] != "finished":
+                list_id.append(i["id"])
+        if len(list_id) > 0:
+            random_id = random.choice(list_id)
+            return random_id
+
+
+def operations_is_in_progress(token):
+    response = garage().get('/operations/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_id = []
+        for i in response.json()["results"]:
+            if i["operation_status"] == "started":
+                if i["payment"] is not None:
+                    list_id.append(i["id"])
+        if len(list_id) > 0:
+            random_id = random.choice(list_id)
+            return random_id
+

@@ -199,7 +199,38 @@ operations = Schema({
     "operation_timestamp": str,
     "car": int,
     "service": int,
-    "payment": int
+    "payment": Any(int, None)
+})
+
+operation_details = Schema({
+    "id": int,
+    "car": {
+        "id": int,
+        "car_owner": {
+            "id": int,
+            "passport_number": int,
+            "first_name": str,
+            "last_name": str,
+            "email": str,
+            "age": int,
+            "city": str
+        },
+        "plate_number": str,
+        "brand": str,
+        "model": str,
+        "engine_number": str
+    },
+    "service": {
+        "id": int,
+        "service_name": str,
+        "service_cost_usd": Any(float, None),
+    },
+    "payment_status": str,
+    "can_be_done": bool,
+    "final_price": str,
+    "operation_status": str,
+    "operation_timestamp": str,
+    "payment": Any(int, None)
 })
 
 services_list = Schema({
