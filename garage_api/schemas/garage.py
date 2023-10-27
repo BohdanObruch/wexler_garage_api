@@ -153,3 +153,78 @@ payments = Schema({
     "signature": Any(str, None),
     "status": str
 })
+
+operations_list = Schema({
+    "count": int,
+    "next": Any(str, None),
+    "previous": Any(str, None),
+    "results": [
+        {
+            "id": int,
+            "car": {
+                "id": int,
+                "car_owner": {
+                    "id": int,
+                    "passport_number": int,
+                    "first_name": str,
+                    "last_name": str,
+                    "email": str,
+                    "age": int,
+                    "city": str
+                },
+                "plate_number": str,
+                "brand": str,
+                "model": str,
+                "engine_number": str
+            },
+            "service": {
+                "id": int,
+                "service_name": str,
+                "service_cost_usd": Any(float, int, None),
+            },
+            "payment_status": str,
+            "can_be_done": bool,
+            "final_price": str,
+            "operation_status": str,
+            "operation_timestamp": str,
+            "payment": Any(int, None)
+        },
+    ]
+})
+
+operations = Schema({
+    "id": int,
+    "final_price": str,
+    "operation_status": Any(str, None),
+    "operation_timestamp": str,
+    "car": int,
+    "service": int,
+    "payment": int
+})
+
+services_list = Schema({
+    "count": int,
+    "next": Any(str, None),
+    "previous": Any(str, None),
+    "results": [
+        {
+            "id": int,
+            "service_name": str,
+            "service_cost_usd": Any(float, int, None),
+        }
+    ]
+})
+
+service = Schema({
+    "id": int,
+    "service_name": Any(str, None),
+    "service_cost_usd": Any(float, None),
+})
+
+discont_service = Schema([
+        {
+            "id": int,
+            "service_name": Any(str, None),
+            "service_cost_usd": Any(float, None),
+        }
+    ])

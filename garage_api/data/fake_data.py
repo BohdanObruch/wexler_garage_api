@@ -144,3 +144,51 @@ def random_payments_id(token):
             list_id.append(i["id"])
         random_id = random.choice(list_id)
         return random_id
+
+
+def generate_random_operations(token):
+    car = random_car_id(token)
+    service = random_service_id(token)
+    payment = random_payments_id(token)
+    amount = round(random.uniform(10.00, 99.00), 2)
+    operation_status = random.choice(["started", "in progress", "finished"])
+    price = f"{amount:.2f}"
+
+    data = {
+        "final_price": price,
+        "operation_status": operation_status,
+        "car": car,
+        "service": service,
+        "payment": payment
+    }
+    return data
+
+
+def random_service_id(token):
+    response = garage().get('/services/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_id = []
+        for i in response.json()["results"]:
+            if i["service_cost_usd"] is not None:
+                list_id.append(i["id"])
+        random_id = random.choice(list_id)
+        return random_id
+
+
+def generate_services():
+    service_name = fake.sentence(nb_words=2)
+    service_cost = round(random.uniform(10.00, 99.00), 2)
+    data = {
+        "service_name": service_name,
+        "service_cost_usd": service_cost
+    }
+    return data
+
+
+def generate_discount():
+    discount = random.randint(1, 99)
+    data = {
+        "discount": discount
+    }
+    return data
