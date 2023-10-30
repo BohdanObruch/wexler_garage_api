@@ -1,14 +1,14 @@
-import random
 from garage_api.utils.sessions import garage
+import random
 
 
-class CarEngines:
+class Customers:
     @staticmethod
-    def random_car_engines_id(token):
+    def random_customer_id(token):
         headers = {
             'Authorization': 'Bearer ' + token[0]
         }
-        response = garage().get('/car_engines/',
+        response = garage().get('/customers/',
                                 headers=headers,
                                 )
         list_id = []

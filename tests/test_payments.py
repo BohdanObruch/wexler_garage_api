@@ -1,8 +1,8 @@
-from garage_api.data.fake_data import generate_random_payments, random_payments, list_payments
 from garage_api.schemas.garage import payments_list, payments, payments_sucsess
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
 from datetime import datetime
+from garage_api.helpers import app
 
 
 class TestPayments:
@@ -14,7 +14,7 @@ class TestPayments:
         assert response.json()['count'] == len(response.json()['results'])
 
     def test_create_payments_post(self, token):
-        data = generate_random_payments()
+        data = app.payments.create_random_payments()
         response = garage().post('/payments/',
                                  headers={'Authorization': 'Bearer ' + token[0]},
                                  data=data
@@ -33,7 +33,7 @@ class TestPayments:
         assert datetime.strptime(response.json().get('timestamp'), timestamp_format)
 
     def test_create_payments_put(self, token):
-        data = generate_random_payments()
+        data = app.payments.create_random_payments()
         response = garage().put('/payments/',
                                 headers={'Authorization': 'Bearer ' + token[0]},
                                 data=data
@@ -52,8 +52,8 @@ class TestPayments:
         assert datetime.strptime(response.json().get('timestamp'), timestamp_format)
 
     def test_payments_success(self, token):
-        inv_id = list_payments(token)
-        random_data = generate_random_payments()
+        inv_id = app.payments.list_payments(token)
+        random_data = app.payments.create_random_payments()
         data = {
             "amount": random_data['amount'],
             "currency": random_data['currency'],
@@ -72,7 +72,7 @@ class TestPayments:
             assert response.json()['status'] == 'SUCCESS'
 
     def test_read_payments(self, token):
-        id = random_payments(token)
+        id = app.payments.random_payments(token)
         response = garage().get(f'/payments/{id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]})
         assert response.status_code == 200
@@ -80,7 +80,7 @@ class TestPayments:
         assert response.json()['id'] == id
 
     def test_update_payments(self, token):
-        random_data = generate_random_payments()
+        random_data = app.payments.create_random_payments()
         data = {
             "amount": random_data['amount'],
             "currency": random_data['currency'],
@@ -90,7 +90,7 @@ class TestPayments:
             "signature": random_data['signature'],
             "status": "SUCCESS"
         }
-        id = random_payments(token)
+        id = app.payments.random_payments(token)
         response = garage().put(f'/payments/{id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]},
                                 data=data
@@ -104,7 +104,7 @@ class TestPayments:
             "status": "SUCCESS"
         }
 
-        id = random_payments(token)
+        id = app.payments.random_payments(token)
         response = garage().patch(f'/payments/{id}/',
                                   headers={'Authorization': 'Bearer ' + token[0]},
                                   data=data
@@ -114,7 +114,7 @@ class TestPayments:
         assert response.json()['status'] == data['status']
 
     def test_delete_payments(self, token):
-        id = random_payments(token)
+        id = app.payments.random_payments(token)
         response = garage().delete(f'/payments/{id}/',
                                    headers={'Authorization': 'Bearer ' + token[0]})
         assert response.status_code == 204

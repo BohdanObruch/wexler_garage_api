@@ -1,7 +1,8 @@
-from garage_api.data.fake_data import generate_random_customers, random_customer_id
+from garage_api.data.fake_data import random_customers
 from garage_api.schemas.garage import customers_list, customer
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
+from garage_api.helpers import app
 
 
 class TestCustomers:
@@ -13,7 +14,7 @@ class TestCustomers:
         assert response.json()['count'] == len(response.json()['results'])
 
     def test_create_customers_post(self, token):
-        data = generate_random_customers()
+        data = random_customers()
         response = garage().post('/customers/',
                                  headers={'Authorization': 'Bearer ' + token[0]},
                                  data=data
@@ -28,7 +29,7 @@ class TestCustomers:
         assert response.json()['city'] == data['city']
 
     def test_create_customers_put(self, token):
-        data = generate_random_customers()
+        data = random_customers()
         response = garage().put('/customers/',
                                 headers={'Authorization': 'Bearer ' + token[0]},
                                 data=data
@@ -43,7 +44,7 @@ class TestCustomers:
         assert response.json()['city'] == data['city']
 
     def test_details_by_random_customer(self, token):
-        random_id = random_customer_id(token)
+        random_id = app.customers.random_customer_id(token)
         response = garage().get(f'/customers/{random_id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]})
         assert response.status_code == 200
@@ -51,8 +52,8 @@ class TestCustomers:
         assert response.json()['id'] == random_id
 
     def test_update_customer(self, token):
-        data = generate_random_customers()
-        random_id = random_customer_id(token)
+        data = random_customers()
+        random_id = app.customers.random_customer_id(token)
         response = garage().put(f'/customers/{random_id}/',
                                 headers={'Authorization': 'Bearer ' + token[0]},
                                 data=data
@@ -67,12 +68,12 @@ class TestCustomers:
         assert response.json()['city'] == data['city']
 
     def test_partial_update_customer(self, token):
-        random_data = generate_random_customers()
+        random_data = random_customers()
         passport_number = random_data['passport_number']
         data = {
             "passport_number": passport_number
         }
-        random_id = random_customer_id(token)
+        random_id = app.customers.random_customer_id(token)
 
         response = garage().patch(f'/customers/{random_id}/',
                                   headers={'Authorization': 'Bearer ' + token[0]},
@@ -83,7 +84,7 @@ class TestCustomers:
         assert response.json()['passport_number'] == data['passport_number']
 
     def test_delete_customer(self, token):
-        random_id = random_customer_id(token)
+        random_id = app.customers.random_customer_id(token)
         response = garage().delete(f'/customers/{random_id}/',
                                    headers={'Authorization': 'Bearer ' + token[0]})
 
