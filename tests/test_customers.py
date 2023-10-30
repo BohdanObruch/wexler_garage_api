@@ -84,14 +84,12 @@ class TestCustomers:
 
     def test_delete_customer(self, token):
         random_id = random_customer_id(token)
-        print(random_id)
         response = garage().delete(f'/customers/{random_id}/',
                                    headers={'Authorization': 'Bearer ' + token[0]})
 
         if response.status_code != 204:
             assert ("Cannot delete some instances of model 'Customer' because they are referenced through restricted "
                     "foreign keys") in response.text
-            print(response.text)
         else:
             assert response.status_code == 204
             assert response.text == ''

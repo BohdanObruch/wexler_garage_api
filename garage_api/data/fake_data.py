@@ -115,14 +115,14 @@ def generate_random_payments():
     amount = f"{amount:.2f}"
 
     currency = random.choice(["USD", "TRY", "EUR", "GBP", "CNY"])
-    inv_id = str(random.randint(1, 999))
+    inv_id = ''.join(
+        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(10))
     trs_id = ''.join(
         random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(10))
     custom = fake.sentence(nb_words=2)
     signature = ''.join(
         random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(15))
-    status = "SUCCESS"
-
+    status = random.choice(["SUCCESS", "IN PROGRESS", "FAILED"])
     data = {
         "amount": amount,
         "currency": currency,
@@ -135,7 +135,31 @@ def generate_random_payments():
     return data
 
 
-def random_payments_id(token):
+def create_payments(token):
+    random_data = generate_random_payments()
+    response = garage().post('/payments/',
+                             headers={'Authorization': 'Bearer ' + token[0]},
+                             data=random_data
+                             )
+    id = response.json()['id']
+    return id
+
+
+def list_payments(token):
+    unique_ids = list_of_paid_transactions(token)
+    response = garage().get('/payments/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    list_inv_id = []
+    for i in response.json()["results"]:
+        if i["status"] != "SUCCESS":
+            if i["id"] in unique_ids:
+                list_inv_id.append(i["InvId"])
+    if len(list_inv_id) > 0:
+        inv_id = random.choice(list_inv_id)
+        return inv_id
+
+
+def random_payments(token):
     response = garage().get('/payments/',
                             headers={'Authorization': 'Bearer ' + token[0]})
     if response.json()['count'] > 0:
@@ -149,17 +173,16 @@ def random_payments_id(token):
 def generate_random_operations(token):
     car = random_car_id(token)
     service = random_service_id(token)
-    payment = random_payments_id(token)
+    id_payment = create_payments(token)
     amount = round(random.uniform(10.00, 99.00), 2)
-    operation_status = random.choice(["started", "in progress"])
     price = f"{amount:.2f}"
 
     data = {
         "final_price": price,
-        "operation_status": operation_status,
+        "operation_status": "started",
         "car": car,
         "service": service,
-        "payment": payment
+        "payment": id_payment
     }
     return data
 
@@ -226,8 +249,37 @@ def operations_is_in_progress(token):
         for i in response.json()["results"]:
             if i["operation_status"] == "started":
                 if i["payment"] is not None:
-                    list_id.append(i["id"])
+                    if i["payment_status"] == "Оплачено":
+                        list_id.append(i["id"])
         if len(list_id) > 0:
             random_id = random.choice(list_id)
             return random_id
 
+
+def random_operations_init(token):
+    response = garage().get('/operations/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        results = response.json()["results"]
+        result_pairs = []
+        for result in results:
+            if result["operation_status"] == "started":
+                engine_number = result["car"]["plate_number"]
+                service_name = result["service"]["service_name"]
+                result_pairs.append((engine_number, service_name))
+        random_data = random.choice(result_pairs)
+        return random_data
+
+
+def list_of_paid_transactions(token):
+    response = garage().get('/operations/',
+                            headers={'Authorization': 'Bearer ' + token[0]})
+    if response.json()['count'] > 0:
+        list_payment_id = set()
+        for i in response.json()["results"]:
+            if i["payment"] is not None:
+                list_payment_id.add(i["payment"])
+
+        unique_ids = list(list_payment_id)
+        if len(unique_ids) > 0:
+            return unique_ids

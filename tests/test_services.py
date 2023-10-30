@@ -41,7 +41,6 @@ class TestServices:
                                 headers={'Authorization': 'Bearer ' + token[0]},
                                 data=data
                                 )
-        print(response.json())
         assert response.status_code == 201
         assert S(service) == response.json()
         assert response.json()['service_name'] == data['service_name']
@@ -89,7 +88,6 @@ class TestServices:
         random_id = random_service_id(token)
         response = garage().delete(f'/services/{random_id}/',
                                    headers={'Authorization': 'Bearer ' + token[0]})
-        print(random_id)
         assert response.status_code == 204
         assert response.text == ''
 

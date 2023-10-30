@@ -154,6 +154,11 @@ payments = Schema({
     "status": str
 })
 
+payments_sucsess = Schema({
+    "status": str,
+    "message": str
+})
+
 operations_list = Schema({
     "count": int,
     "next": Any(str, None),

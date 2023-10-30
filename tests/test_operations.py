@@ -1,5 +1,5 @@
 from garage_api.data.fake_data import generate_random_operations, random_operations_id, operations_is_not_finish, \
-    operations_is_in_progress
+    operations_is_in_progress, random_operations_init
 from garage_api.schemas.garage import operations_list, operations, operation_details
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
@@ -31,13 +31,21 @@ class TestOperations:
         assert 'id' in response.json()
         assert datetime.strptime(response.json().get('operation_timestamp'), timestamp_format)
 
-    # def test_init_operations(self,token):
-    #     data = generate_random_operations(token)
-    #     params =
-    #     response = garage().get('/operations/init/',
-    #                             headers={'Authorization': 'Bearer ' + token[0]},
-    #                             params=params
-    #                             )
+    def test_init_operations(self, token):
+        random_data = random_operations_init(token)
+        params = {
+            "plate_number": random_data[0],
+            "service_name": random_data[1]
+        }
+        response = garage().get('/operations/init/',
+                                headers={'Authorization': 'Bearer ' + token[0]},
+                                params=params
+                                )
+        assert response.status_code == 200
+        assert S(operation_details) == response.json()
+        assert response.json()['car']['plate_number'] == params['plate_number']
+        assert response.json()['service']['service_name'] == params['service_name']
+        assert response.json()['operation_status'] != 'in progress'
 
     def test_details_by_random_operations(self, token):
         random_id = random_operations_id(token)
@@ -98,16 +106,15 @@ class TestOperations:
             assert response.json()['operation_status'] == 'finished'
             assert response.json()['id'] == random_id
 
-    # def test_operations_in_progress(self, token):
-    #     random_id = operations_is_in_progress(token)
-    #     print(random_id)
-    #     response = garage().get(f'/operations/{random_id}/in_progress/',
-    #                             headers={'Authorization': 'Bearer ' + token[0]})
-    #     print(response.json())
-    #     assert response.status_code == 200
-    #     assert S(operation_details) == response.json()
-    #     assert response.json()['operation_status'] == 'in progress'
-    #     assert response.json()['id'] == random_id
+    def test_operations_in_progress(self, token):
+        random_id = operations_is_in_progress(token)
+        response = garage().get(f'/operations/{random_id}/in_progress/',
+                                headers={'Authorization': 'Bearer ' + token[0]})
+
+        if response.status_code == 200:
+            assert S(operation_details) == response.json()
+            assert response.json()['operation_status'] == 'in progress'
+            assert response.json()['id'] == random_id
 
     def test_stop_operations(self, token):
         random_id = random_operations_id(token)
