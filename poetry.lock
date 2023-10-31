@@ -7,6 +7,50 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "autopep8"
+version = "2.0.4"
+description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pycodestyle = ">=2.10.0"
+tomli = {version = "*", markers = "python_version < \"3.11\""}
+
+[[package]]
+name = "boto3"
+version = "1.28.74"
+description = "The AWS SDK for Python"
+category = "main"
+optional = false
+python-versions = ">= 3.7"
+
+[package.dependencies]
+botocore = ">=1.31.74,<1.32.0"
+jmespath = ">=0.7.1,<2.0.0"
+s3transfer = ">=0.7.0,<0.8.0"
+
+[package.extras]
+crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
+
+[[package]]
+name = "botocore"
+version = "1.31.74"
+description = "Low-level, data-driven core of boto 3."
+category = "main"
+optional = false
+python-versions = ">= 3.7"
+
+[package.dependencies]
+jmespath = ">=0.7.1,<2.0.0"
+python-dateutil = ">=2.1,<3.0.0"
+urllib3 = {version = ">=1.25.4,<2.1", markers = "python_version >= \"3.10\""}
+
+[package.extras]
+crt = ["awscrt (==0.16.26)"]
+
+[[package]]
 name = "certifi"
 version = "2023.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -80,6 +124,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "jmespath"
+version = "1.0.1"
+description = "JSON Matching Expressions"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "lorem"
 version = "0.1.1"
 description = "Generator for random text that looks like Latin."
@@ -106,6 +158,14 @@ python-versions = ">=3.8"
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "pycodestyle"
+version = "2.11.1"
+description = "Python style guide checker"
+category = "main"
+optional = false
+python-versions = ">=3.8"
 
 [[package]]
 name = "pydantic"
@@ -152,6 +212,20 @@ tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 
 [package.extras]
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
+
+[[package]]
+name = "pytest-analyzer"
+version = "1.2.5"
+description = "this plugin allows to analyze tests in pytest project, collect test metadata and sync it with testomat.io TCM system"
+category = "main"
+optional = false
+python-versions = ">=3.10"
+
+[package.dependencies]
+autopep8 = ">=2.0.2"
+boto3 = ">=1.28.28"
+pytest = ">=7.3.1"
+requests = ">=2.29.0"
 
 [[package]]
 name = "pytest-voluptuous"
@@ -206,6 +280,20 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "s3transfer"
+version = "0.7.0"
+description = "An Amazon S3 Transfer Manager"
+category = "main"
+optional = false
+python-versions = ">= 3.7"
+
+[package.dependencies]
+botocore = ">=1.12.36,<2.0a.0"
+
+[package.extras]
+crt = ["botocore[crt] (>=1.20.29,<2.0a.0)"]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -253,13 +341,25 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "a0a36267d3e5a7fb4c4b93a34b184ff753b3cc059ded5b23c2ac6aafae51ee18"
+python-versions = "^3.10"
+content-hash = "a97effc6d393b9d68f7e1f7df35cf736d401400b2e281cb0c5b5b76ed492d996"
 
 [metadata.files]
 annotated-types = [
     {file = "annotated_types-0.6.0-py3-none-any.whl", hash = "sha256:0641064de18ba7a25dee8f96403ebc39113d0cb953a01429249d5c7564666a43"},
     {file = "annotated_types-0.6.0.tar.gz", hash = "sha256:563339e807e53ffd9c267e99fc6d9ea23eb8443c08f112651963e24e22f84a5d"},
+]
+autopep8 = [
+    {file = "autopep8-2.0.4-py2.py3-none-any.whl", hash = "sha256:067959ca4a07b24dbd5345efa8325f5f58da4298dab0dde0443d5ed765de80cb"},
+    {file = "autopep8-2.0.4.tar.gz", hash = "sha256:2913064abd97b3419d1cc83ea71f042cb821f87e45b9c88cad5ad3c4ea87fe0c"},
+]
+boto3 = [
+    {file = "boto3-1.28.74-py3-none-any.whl", hash = "sha256:a12619d23d50523bdfa6bd2d0c124a9567a5434ec63e47df71c3e88fc9d482f6"},
+    {file = "boto3-1.28.74.tar.gz", hash = "sha256:c4d89ff98cf53e1e74ed8c1c1bb13a7bd7d909e1c0d9ad25792ccfe2cb1575bc"},
+]
+botocore = [
+    {file = "botocore-1.31.74-py3-none-any.whl", hash = "sha256:3eef070a8d8c4240aad07e5c89395002b140af213bcfc4dcd1d441e3ee4b3bee"},
+    {file = "botocore-1.31.74.tar.gz", hash = "sha256:2549ca7dc0f9227d8692a56a133c1346642efb38736c7c3f1330724d937ad6ec"},
 ]
 certifi = [
     {file = "certifi-2023.7.22-py3-none-any.whl", hash = "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"},
@@ -380,6 +480,10 @@ iniconfig = [
     {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
     {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
 ]
+jmespath = [
+    {file = "jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980"},
+    {file = "jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"},
+]
 lorem = [
     {file = "lorem-0.1.1-py3-none-any.whl", hash = "sha256:c9c2914b5a772022417c398bd74b7bbd712e73ff029ba82720855e458f13ae42"},
     {file = "lorem-0.1.1.tar.gz", hash = "sha256:785f4109a241fc2891e59705e85d065f6e6d3ed6ad91750a8cb54d4f3e59d934"},
@@ -391,6 +495,10 @@ packaging = [
 pluggy = [
     {file = "pluggy-1.3.0-py3-none-any.whl", hash = "sha256:d89c696a773f8bd377d18e5ecda92b7a3793cbe66c87060a6fb58c7b6e1061f7"},
     {file = "pluggy-1.3.0.tar.gz", hash = "sha256:cf61ae8f126ac6f7c451172cf30e3e43d3ca77615509771b3a984a0730651e12"},
+]
+pycodestyle = [
+    {file = "pycodestyle-2.11.1-py2.py3-none-any.whl", hash = "sha256:44fe31000b2d866f2e41841b18528a505fbd7fef9017b04eff4e2648a0fadc67"},
+    {file = "pycodestyle-2.11.1.tar.gz", hash = "sha256:41ba0e7afc9752dfb53ced5489e89f8186be00e599e712660695b7a75ff2663f"},
 ]
 pydantic = [
     {file = "pydantic-2.4.2-py3-none-any.whl", hash = "sha256:bc3ddf669d234f4220e6e1c4d96b061abe0998185a8d7855c0126782b7abc8c1"},
@@ -508,6 +616,10 @@ pytest = [
     {file = "pytest-7.4.3-py3-none-any.whl", hash = "sha256:0d009c083ea859a71b76adf7c1d502e4bc170b80a8ef002da5806527b9591fac"},
     {file = "pytest-7.4.3.tar.gz", hash = "sha256:d989d136982de4e3b29dabcc838ad581c64e8ed52c11fbe86ddebd9da0818cd5"},
 ]
+pytest-analyzer = [
+    {file = "pytest-analyzer-1.2.5.tar.gz", hash = "sha256:605d3e1d557d7259a74783c6fe1a8e843724aada964302710af489ef13159f9a"},
+    {file = "pytest_analyzer-1.2.5-py3-none-any.whl", hash = "sha256:dae75a5703fee519d1adb8ba63cacebd198c0bb3f8456c016379eb4451c4bb1d"},
+]
 pytest-voluptuous = [
     {file = "pytest_voluptuous-1.2.0-py2.py3-none-any.whl", hash = "sha256:a3856e9812b219fec1c3f2fd8249c0bac6927e1d5e52a3961e4ae903f54d494f"},
 ]
@@ -522,6 +634,10 @@ python-dotenv = [
 requests = [
     {file = "requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"},
     {file = "requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"},
+]
+s3transfer = [
+    {file = "s3transfer-0.7.0-py3-none-any.whl", hash = "sha256:10d6923c6359175f264811ef4bf6161a3156ce8e350e705396a7557d6293c33a"},
+    {file = "s3transfer-0.7.0.tar.gz", hash = "sha256:fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
