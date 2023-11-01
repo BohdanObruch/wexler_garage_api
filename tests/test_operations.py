@@ -1,4 +1,3 @@
-from pytest import mark
 from garage_api.data.fake_data import random_operations
 from garage_api.schemas.garage import operations_list, operations, operation_details
 from garage_api.utils.sessions import garage
@@ -9,7 +8,6 @@ from garage_api.helpers import app
 
 class TestOperations:
 
-    @mark.testomatio('@Tb0a663aa')
     def test_operations_list(self, token):
         response = garage().get(
             '/operations/', headers={'Authorization': 'Bearer ' + token[0]})
@@ -17,7 +15,6 @@ class TestOperations:
         assert S(operations_list) == response.json()
         assert response.json()['count'] == len(response.json()['results'])
 
-    @mark.testomatio('@Tf321e025')
     def test_create_operations(self, token):
         data = random_operations(token)
         response = garage().post(
@@ -34,7 +31,6 @@ class TestOperations:
         assert datetime.strptime(response.json().get(
             'operation_timestamp'), timestamp_format)
 
-    @mark.testomatio('@Te95b02a2')
     def test_init_operations(self, token):
         random_data = app.operations.random_operations_init(token)
         params = {
@@ -48,7 +44,6 @@ class TestOperations:
             'service']['service_name'] == params['service_name']
         assert response.json()['operation_status'] != 'in progress'
 
-    @mark.testomatio('@T635246cf')
     def test_details_by_random_operations(self, token):
         random_id = app.operations.random_operations_id(token)
         response = garage().get(
@@ -57,7 +52,6 @@ class TestOperations:
         assert S(operation_details) == response.json()
         assert response.json()['id'] == random_id
 
-    @mark.testomatio('@T90e37a5b')
     def test_update_operations(self, token):
         data = random_operations(token)
         random_id = app.operations.random_operations_id(token)
@@ -75,7 +69,6 @@ class TestOperations:
         assert datetime.strptime(response.json().get(
             'operation_timestamp'), timestamp_format)
 
-    @mark.testomatio('@Tacd56474')
     def test_partial_update_operations(self, token):
         random_data = random_operations(token)
         data = {'final_price': random_data['final_price'],
@@ -88,7 +81,6 @@ class TestOperations:
         assert response.json()['final_price'] == data['final_price']
         assert response.json()['operation_status'] == data['operation_status']
 
-    @mark.testomatio('@T4dc43a4a')
     def test_delete_operations(self, token):
         random_id = app.operations.random_operations_id(token)
         response = garage().delete(
@@ -96,7 +88,6 @@ class TestOperations:
         assert response.status_code == 204
         assert response.text == ''
 
-    @mark.testomatio('@T6a863131')
     def test_finished_operations(self, token):
         random_id = app.operations.operations_is_not_finish(token)
         if random_id is not None:
@@ -107,7 +98,6 @@ class TestOperations:
             assert response.json()['operation_status'] == 'finished'
             assert response.json()['id'] == random_id
 
-    @mark.testomatio('@Td7d58ca9')
     def test_operations_in_progress(self, token):
         random_id = app.operations.operations_is_in_progress(token)
         response = garage().get(
@@ -117,7 +107,6 @@ class TestOperations:
             assert response.json()['operation_status'] == 'in progress'
             assert response.json()['id'] == random_id
 
-    @mark.testomatio('@T9cb918a2')
     def test_stop_operations(self, token):
         random_id = app.operations.random_operations_id(token)
         response = garage().get(

@@ -1,10 +1,8 @@
-from pytest import mark
 from garage_api.utils.sessions import garage
 
 
 class TestKitchen:
 
-    @mark.testomatio('@T5565ffc0')
     def test_brew_coffee_in_coffee_maker_list(self, token):
         response = garage().get('/kitchen/brew_coffee_in_coffee_maker',
                                 headers={'Authorization': 'Bearer ' + token[0]})

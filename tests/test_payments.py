@@ -1,4 +1,3 @@
-from pytest import mark
 from garage_api.schemas.garage import payments_list, payments, payments_sucsess
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
@@ -8,7 +7,6 @@ from garage_api.helpers import app
 
 class TestPayments:
 
-    @mark.testomatio('@T2b2e3d78')
     def test_payments_list(self, token):
         response = garage().get(
             '/payments/', headers={'Authorization': 'Bearer ' + token[0]})
@@ -16,7 +14,6 @@ class TestPayments:
         assert S(payments_list) == response.json()
         assert response.json()['count'] == len(response.json()['results'])
 
-    @mark.testomatio('@T98d14242')
     def test_create_payments_post(self, token):
         data = app.payments.create_random_payments()
         response = garage().post(
@@ -35,7 +32,6 @@ class TestPayments:
         assert datetime.strptime(
             response.json().get('timestamp'), timestamp_format)
 
-    @mark.testomatio('@T93707e45')
     def test_create_payments_put(self, token):
         data = app.payments.create_random_payments()
         response = garage().put(
@@ -54,12 +50,16 @@ class TestPayments:
         assert datetime.strptime(
             response.json().get('timestamp'), timestamp_format)
 
-    @mark.testomatio('@T96e953d4')
     def test_payments_success(self, token):
         inv_id = app.payments.list_payments(token)
         random_data = app.payments.create_random_payments()
-        data = {'amount': random_data['amount'], 'currency': random_data['currency'], 'InvId': inv_id,
-                'trsid': random_data['trsid'], 'custom': random_data['custom'], 'signature': random_data['signature'], 'status': 'SUCCESS'}
+        data = {'amount': random_data['amount'],
+                'currency': random_data['currency'],
+                'InvId': inv_id,
+                'trsid': random_data['trsid'],
+                'custom': random_data['custom'],
+                'signature': random_data['signature'],
+                'status': 'SUCCESS'}
         if inv_id is not None:
             response = garage().post('/payments/success/',
                                      headers={'Authorization': 'Bearer ' + token[0]}, data=data)
@@ -67,7 +67,6 @@ class TestPayments:
             assert S(payments_sucsess) == response.json()
             assert response.json()['status'] == 'SUCCESS'
 
-    @mark.testomatio('@Tcd848710')
     def test_read_payments(self, token):
         id = app.payments.random_payments(token)
         response = garage().get(
@@ -76,11 +75,15 @@ class TestPayments:
         assert S(payments) == response.json()
         assert response.json()['id'] == id
 
-    @mark.testomatio('@T3db79a3d')
     def test_update_payments(self, token):
         random_data = app.payments.create_random_payments()
-        data = {'amount': random_data['amount'], 'currency': random_data['currency'], 'InvId': random_data['InvId'],
-                'trsid': random_data['trsid'], 'custom': random_data['custom'], 'signature': random_data['signature'], 'status': 'SUCCESS'}
+        data = {'amount': random_data['amount'],
+                'currency': random_data['currency'],
+                'InvId': random_data['InvId'],
+                'trsid': random_data['trsid'],
+                'custom': random_data['custom'],
+                'signature': random_data['signature'],
+                'status': 'SUCCESS'}
         id = app.payments.random_payments(token)
         response = garage().put(
             f'/payments/{id}/', headers={'Authorization': 'Bearer ' + token[0]}, data=data)
@@ -88,7 +91,6 @@ class TestPayments:
         assert S(payments) == response.json()
         assert response.json()['status'] == data['status']
 
-    @mark.testomatio('@T416d21d0')
     def test_partial_update_payments(self, token):
         data = {'status': 'SUCCESS'}
         id = app.payments.random_payments(token)
@@ -98,7 +100,6 @@ class TestPayments:
         assert S(payments) == response.json()
         assert response.json()['status'] == data['status']
 
-    @mark.testomatio('@T5b0e2277')
     def test_delete_payments(self, token):
         id = app.payments.random_payments(token)
         response = garage().delete(
