@@ -37,5 +37,6 @@ jobs:
 
         run: |
           source .venv/bin/activate
+          print(API_URL)
           
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
