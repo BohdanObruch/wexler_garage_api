@@ -25,7 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry add wexler_garage_api
+          ls -la
+          
+          poetry install
           
 
       - name: Run tests
