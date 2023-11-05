@@ -1,3 +1,4 @@
+from pytest import mark
 from garage_api.schemas.garage import root
 from garage_api.utils.sessions import garage
 from pytest_voluptuous import S
@@ -5,6 +6,7 @@ from pytest_voluptuous import S
 
 class TestRoot:
 
+    @mark.testomatio('@T966ebf01')
     def test_root_list(self, token):
         response = garage().get(
             '/root/', headers={'Authorization': 'Bearer ' + token[0]})
