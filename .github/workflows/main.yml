@@ -17,13 +17,17 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.11
+
       - name: Install Poetry
         run: |
-          pip install poetry
+            pip install poetry | python -
+            source $HOME/.poetry/env
+          
 
       - name: Install dependencies
         run: |
           poetry install
+          
 
       - name: Run tests
         run: |
