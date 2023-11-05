@@ -36,10 +36,6 @@ jobs:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
 
         run: |
-          print(API_URL)
-          
-          ls -la
           source .venv/bin/activate
-          poetry run pytest --analyzer sync
           
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
