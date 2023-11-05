@@ -35,5 +35,6 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
 
         run: |
-          pytest -v
+          poetry run which pytest
+          
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
