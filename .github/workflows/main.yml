@@ -33,8 +33,11 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
 
         run: |
+          print(API_URL)
+          
           ls -la
           source .venv/bin/activate
           poetry run pytest --analyzer sync
