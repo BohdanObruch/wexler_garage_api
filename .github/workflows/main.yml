@@ -35,6 +35,8 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
 
         run: |
-          poetry run which pytest
+          ls -la
+          source .venv/bin/activate
+          poetry run pytest --analyzer sync
           
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
