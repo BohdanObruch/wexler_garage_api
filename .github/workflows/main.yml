@@ -31,8 +31,8 @@ jobs:
         env:
           API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
           API_URL: ${{ secrets.API_URL }}
-          USERNAME: ${{ env.USERNAME }}
-          PASSWORD: ${{ env.PASSWORD }}
+          USERNAME: ${{ env.secrets.USERNAME }}
+          PASSWORD: ${{ env.secrets.PASSWORD }}
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
 
         run: |
