@@ -21,14 +21,19 @@ jobs:
       - name: Install Poetry
         run: |
             pip install poetry
-            source $HOME/.poetry/env
 
 
       - name: Install dependencies
         run: |
-          poetry install
+          poetry add wexler-garage-api
           
 
       - name: Run tests
+        env:
+          API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
+          API_URL: ${{ secrets.API_URL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
         run: |
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
