@@ -26,15 +26,22 @@ jobs:
           pip install poetry
           poetry install
 
-      - name: generate dotenv for go
-        run: |
-          echo API_AUTHORIZATION=${{ secrets.API_AUTHORIZATION }} > .env
-          echo API_URL=${{ secrets.API_URL }} > .env
-          echo USERNAME=${{ secrets.USERNAME }} > .env
-          echo PASSWORD=${{ secrets.PASSWORD }} > .env
-          echo TESTOMATIO=${{ secrets.TESTOMATIO }} > .env
+        env:
+          API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
+          API_URL: ${{ secrets.API_URL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
 
       - name: Run tests
         run: |
           source .venv/bin/activate
+          ls -la
+          touch .env
+            echo "API_AUTHORIZATION=${{ secrets.API_AUTHORIZATION }}" >> .env
+            echo "API_URL=${{ secrets.API_URL }}" >> .env
+            echo "USERNAME=${{ secrets.USERNAME }}" >> .env
+            echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
+            echo "TESTOMATIO=${{ secrets.TESTOMATIO }}" >> .env
+            cat .env
           TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
