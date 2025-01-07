@@ -24,7 +24,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install poetry
-          poetry install
+          poetry install --no-interaction --no-root
 
         env:
           API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
