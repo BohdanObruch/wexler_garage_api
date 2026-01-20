@@ -44,3 +44,8 @@ jobs:
       - name: Run tests
         run: poetry run pytest
         continue-on-error: true
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
