@@ -1,18 +1,16 @@
 import pytest
 
 from garage_api.utils.sessions import garage_authorization
-from dotenv import dotenv_values, load_dotenv
+from dotenv import load_dotenv
+import os
 
 
 @pytest.fixture(scope='session', autouse=True)
 def env():
     load_dotenv()
 
-
-dotenv = dotenv_values()
-
-username = dotenv.get('USERNAME')
-password = dotenv.get('PASSWORD')
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
 
 
 @pytest.fixture()
