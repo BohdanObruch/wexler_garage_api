@@ -25,4 +25,8 @@ def token():
                                            data=payload)
     token = response.json()['access']
     refresh_token = response.json()['refresh']
+    print(username)
+    print(password)
+    print(token)
+    print(refresh_token)
     return token, refresh_token
