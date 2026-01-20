@@ -1,11 +1,15 @@
-name: Run tests
+name: Normal Tests
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 
 jobs:
@@ -13,31 +17,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.12
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
 
       - name: Install dependencies
         run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install poetry
-          poetry install --no-interaction --no-root
-
-        env:
-          API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
-          API_URL: ${{ secrets.API_URL }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          pip install --no-cache-dir poetry \
+          && poetry config virtualenvs.create false \
+          && poetry install --no-interaction --no-ansi
 
       - name: Run tests
-        run: |
-          source .venv/bin/activate
-          touch .env
-            echo "API_AUTHORIZATION=${{ secrets.API_AUTHORIZATION }}" >> .env
-            echo "API_URL=${{ secrets.API_URL }}" >> .env
-            echo "USERNAME=${{ secrets.USERNAME }}" >> .env
-            echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
-            cat .env
+        run: poetry run pytest
+        continue-on-error: true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 20
+
+      - uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: create Allure report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
