@@ -23,10 +23,10 @@ def token():
     }
     response = garage_authorization().post(f'/user/login/',
                                            data=payload)
-    token = response.json()['access']
-    refresh_token = response.json()['refresh']
     print(username)
     print(password)
+    token = response.json()['access']
+    refresh_token = response.json()['refresh']
     print(token)
     print(refresh_token)
     return token, refresh_token
