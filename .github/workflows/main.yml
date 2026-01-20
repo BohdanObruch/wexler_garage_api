@@ -47,5 +47,5 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          API_USERNAME: ${{ secrets.USERNAME }}
+          API_PASSWORD: ${{ secrets.PASSWORD }}
