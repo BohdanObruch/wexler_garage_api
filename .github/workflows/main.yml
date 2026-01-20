@@ -42,7 +42,7 @@ jobs:
           && poetry install --no-interaction --no-ansi --no-root
 
       - name: Run tests
-        run: poetry run pytest -s -v
+        run: poetry run pytest
         continue-on-error: true
         env:
           API_URL: ${{ secrets.API_URL }}
