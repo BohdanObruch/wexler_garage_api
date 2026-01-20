@@ -15,7 +15,7 @@ class TestUser:
         assert S(user_login) == response.json()
 
     @mark.testomatio('@Ta35d180c')
-    def test_login_refreh(self, token):
+    def test_login_refresh(self, token):
         data = {'refresh': token[1]}
         response = garage_authorization().post(f'/user/login/refresh/', data=data)
         assert response.status_code == 200

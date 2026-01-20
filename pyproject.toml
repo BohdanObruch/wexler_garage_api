@@ -5,19 +5,23 @@ description = 'Project for automating the voitixler.com course "API and Postman 
 authors = ["Bohdan Obruch <bodan1992@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-requests = "^2.32.3"
-faker = "^33.0.0"
+python = "^3.12"
+requests = "^2.32.5"
+faker = "^40.1.2"
 pydantic = "^2.10.5"
 lorem = "0.1.1"
 python-dotenv = "^1.0.1"
 voluptuous = "^0.13.1"
-pytest-voluptuous = "^1.2.0"
-curlify = "^2.2.1"
-pytest = "^7.4.3"
-pytest-analyzer = "^1.2.5"
+curlify = "^3.0.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-voluptuous = "^1.2.0"
+
+[tool.pytest.ini_options]
+markers = [
+  "testomatio: Testomatio test id marker",
+]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

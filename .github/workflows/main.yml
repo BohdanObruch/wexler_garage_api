@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.12
 
 
       - name: Install dependencies
@@ -31,7 +31,6 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          TESTOMATIO: ${{ secrets.TESTOMATIO }}
 
       - name: Run tests
         run: |
@@ -41,6 +40,4 @@ jobs:
             echo "API_URL=${{ secrets.API_URL }}" >> .env
             echo "USERNAME=${{ secrets.USERNAME }}" >> .env
             echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
-            echo "TESTOMATIO=${{ secrets.TESTOMATIO }}" >> .env
             cat .env
-          TESTOMATIO=${{ secrets.TESTOMATIO}} pytest --analyzer sync
