@@ -73,7 +73,7 @@ jobs:
         if: always()
         run: allure generate allure-results
 
-      - uses: allure-framework/allure-report@v0
+      - uses: allure-framework/allure-action@v0.6.4
         if: always()
         id: allure-report
         with:
