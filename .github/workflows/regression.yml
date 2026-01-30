@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   checks: write
   pull-requests: write
 
@@ -48,8 +48,11 @@ jobs:
           && poetry config virtualenvs.create false \
           && poetry install --no-interaction --no-ansi --no-root
 
+      - name: Install Allure Report 3
+        run: npm install -g allure
+
       - name: Run regression tests
-        run: poetry run pytest tests/regress
+        run: poetry run pytest tests/regress --alluredir=allure-results
         continue-on-error: true
         env:
           API_URL: ${{ secrets.API_URL }}
@@ -64,10 +67,6 @@ jobs:
           name: allure-results
           path: allure-results
           retention-days: 20
-
-      - name: Install Allure Report 3
-        if: always()
-        run: npm install -g allure
 
       - name: Generate Allure report
         if: always()
