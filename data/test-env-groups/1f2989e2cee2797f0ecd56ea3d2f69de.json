@@ -1,1 +1,0 @@
-{"id":"1f2989e2cee2797f0ecd56ea3d2f69de","fullName":"tests.regress.negative.test_negative_services.TestServicesNegative#test_partial_update_service_invalid_payload","name":"test_partial_update_service_invalid_payload[service_name_empty]","status":"passed","testResultsByEnv":{"default":"5e6f93c09ad82577e50a71a715c6e84e"}}

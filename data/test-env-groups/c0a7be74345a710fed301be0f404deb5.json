@@ -1,1 +1,0 @@
-{"id":"c0a7be74345a710fed301be0f404deb5","fullName":"tests.regress.negative.test_negative_car_engines.TestCarEnginesNegative#test_partial_update_car_engine_invalid_payload","name":"test_partial_update_car_engine_invalid_payload[production_year_str]","status":"passed","testResultsByEnv":{"default":"408e889037cb34dbceeee908d034e0ae"}}

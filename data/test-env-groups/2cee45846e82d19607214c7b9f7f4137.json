@@ -1,1 +1,0 @@
-{"id":"2cee45846e82d19607214c7b9f7f4137","fullName":"tests.regress.negative.test_negative_payments.TestPaymentsNegative#test_partial_update_payment_invalid_payload","name":"test_partial_update_payment_invalid_payload[currency_too_long]","status":"passed","testResultsByEnv":{"default":"94387e3471524ee81a89fab11edcf2e3"}}

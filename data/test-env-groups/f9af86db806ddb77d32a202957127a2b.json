@@ -1,1 +1,0 @@
-{"id":"f9af86db806ddb77d32a202957127a2b","fullName":"tests.regress.negative.test_negative_cars.TestCarsNegative#test_create_car_put_invalid_payload","name":"test_create_car_put_invalid_payload[plate_number_int]","status":"passed","testResultsByEnv":{"default":"b25da4c858a38f37f0fca75940280f2a"}}

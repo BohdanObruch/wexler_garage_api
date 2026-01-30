@@ -1,1 +1,0 @@
-{"id":"74202e1760b66ecdc621305cbf34f496","fullName":"tests.regress.negative.test_negative_cars.TestCarsNegative#test_update_car_invalid_payload","name":"test_update_car_invalid_payload[model_too_long]","status":"passed","testResultsByEnv":{"default":"280113dc752b8e5233bce5455f8e1951"}}

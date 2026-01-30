@@ -1,1 +1,0 @@
-{"id":"9c609c4f1c75e3982f0fbab865e7843d","fullName":"tests.regress.negative.test_negative_operations.TestOperationsNegative#test_partial_update_operation_invalid_payload","name":"test_partial_update_operation_invalid_payload[price_string_not_decimal]","status":"passed","testResultsByEnv":{"default":"0eb7113b52fe53ae637a96d528c48723"}}

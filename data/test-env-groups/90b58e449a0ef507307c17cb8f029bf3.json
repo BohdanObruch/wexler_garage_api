@@ -1,1 +1,0 @@
-{"id":"90b58e449a0ef507307c17cb8f029bf3","fullName":"tests.regress.negative.test_negative_user.TestUserNegative#test_login_missing_or_invalid_fields","name":"test_login_missing_or_invalid_fields[missing_username]","status":"passed","testResultsByEnv":{"default":"03ae30323cb5355a066235cb3424dfda"}}

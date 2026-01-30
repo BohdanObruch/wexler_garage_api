@@ -1,1 +1,0 @@
-{"id":"249d4e5ef443160329d6168e72f46e63","fullName":"tests.regress.negative.test_negative_payments.TestPaymentsNegative#test_create_payment_put_invalid_payload","name":"test_create_payment_put_invalid_payload[trsid_empty]","status":"passed","testResultsByEnv":{"default":"9d8750ce017620d9bcb6fdfc47680c54"}}

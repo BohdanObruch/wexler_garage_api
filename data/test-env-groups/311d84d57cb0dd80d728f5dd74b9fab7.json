@@ -1,1 +1,0 @@
-{"id":"311d84d57cb0dd80d728f5dd74b9fab7","fullName":"tests.regress.test_user.TestUser#test_login_invalid_credentials","name":"test_login_invalid_credentials[password_only_spaces]","status":"passed","testResultsByEnv":{"default":"c4a2c4ac2124cd00cf8888f25a428c05"}}
