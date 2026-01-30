@@ -1,0 +1,1 @@
+{"id":"ed9a4f431f2f11e9585d0f8e00b25214","fullName":"tests.regress.negative.test_negative_cars.TestCarsNegative#test_create_car_invalid_payload","name":"test_create_car_invalid_payload[car_owner_string]","status":"passed","testResultsByEnv":{"default":"34bec48341ae38cee15429aaab08634e"}}

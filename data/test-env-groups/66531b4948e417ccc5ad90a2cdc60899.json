@@ -1,0 +1,1 @@
+{"id":"66531b4948e417ccc5ad90a2cdc60899","fullName":"tests.regress.negative.test_negative_services.TestServicesNegative#test_create_service_invalid_payload","name":"test_create_service_invalid_payload[service_name_too_long]","status":"passed","testResultsByEnv":{"default":"2cfbdae192be2bd193033976885681a6"}}

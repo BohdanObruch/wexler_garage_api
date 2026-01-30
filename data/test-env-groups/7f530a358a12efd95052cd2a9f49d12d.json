@@ -1,0 +1,1 @@
+{"id":"7f530a358a12efd95052cd2a9f49d12d","fullName":"tests.regress.negative.test_negative_customers.TestCustomersNegative#test_create_customer_invalid_payload","name":"test_create_customer_invalid_payload[city_too_long]","status":"passed","testResultsByEnv":{"default":"9b1bacb13a363e3ec7c7a6f639591b03"}}

@@ -1,0 +1,1 @@
+{"id":"c2a78a3917499a7ea5aca596fd043ab3","fullName":"tests.regress.negative.test_negative_services.TestServicesNegative#test_create_service_put_invalid_payload","name":"test_create_service_put_invalid_payload[service_cost_usd_string]","status":"passed","testResultsByEnv":{"default":"9045994c134d4cbc0e8da5ac081b4da1"}}

@@ -1,0 +1,1 @@
+{"id":"d97392e8e71e5e8ec142f3a74f3bfd88","fullName":"tests.regress.negative.test_negative_services.TestServicesNegative#test_list_services_invalid_pagination","name":"test_list_services_invalid_pagination[limit_string]","status":"passed","testResultsByEnv":{"default":"c7ac6521eeae8468ed6a1e644f492580"}}

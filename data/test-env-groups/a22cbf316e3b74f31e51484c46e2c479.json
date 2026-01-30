@@ -1,0 +1,1 @@
+{"id":"a22cbf316e3b74f31e51484c46e2c479","fullName":"tests.regress.negative.test_negative_payments.TestPaymentsNegative#test_list_payments_invalid_pagination","name":"test_list_payments_invalid_pagination[offset_negative]","status":"passed","testResultsByEnv":{"default":"06c01d87a4384c41a734915413af0fcd"}}

@@ -1,0 +1,1 @@
+{"id":"d360edeea8d49b89d1523c34f6bec31a","fullName":"tests.regress.negative.test_negative_customers.TestCustomersNegative#test_delete_customer_not_found","name":"test_delete_customer_not_found","status":"passed","testResultsByEnv":{"default":"42bce0b8aec3e03a6eeacf9ec311de50"}}

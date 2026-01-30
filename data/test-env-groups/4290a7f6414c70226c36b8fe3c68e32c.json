@@ -1,0 +1,1 @@
+{"id":"4290a7f6414c70226c36b8fe3c68e32c","fullName":"tests.regress.negative.test_negative_customers.TestCustomersNegative#test_list_customers_invalid_pagination","name":"test_list_customers_invalid_pagination[limit_string]","status":"passed","testResultsByEnv":{"default":"a02dbdd675a1de39c73ed9542492b0d9"}}

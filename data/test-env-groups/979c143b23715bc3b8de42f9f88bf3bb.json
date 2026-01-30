@@ -1,0 +1,1 @@
+{"id":"979c143b23715bc3b8de42f9f88bf3bb","fullName":"tests.regress.negative.test_negative_customers.TestCustomersNegative#test_create_customer_put_invalid_payload","name":"test_create_customer_put_invalid_payload[missing_required]","status":"passed","testResultsByEnv":{"default":"c57d6259f3c8a92f263ee1e940ec472f"}}

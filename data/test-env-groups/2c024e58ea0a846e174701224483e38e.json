@@ -1,0 +1,1 @@
+{"id":"2c024e58ea0a846e174701224483e38e","fullName":"tests.regress.negative.test_negative_customers.TestCustomersNegative#test_update_customer_invalid_payload","name":"test_update_customer_invalid_payload[email_too_long]","status":"passed","testResultsByEnv":{"default":"718a265b3b0e156b1f3305c96ca3b37a"}}
