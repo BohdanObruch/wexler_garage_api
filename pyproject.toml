@@ -14,6 +14,8 @@ python-dotenv = "^1.0.1"
 curlify = "^3.0.0"
 pytest = "^9.0.2"
 allure-pytest = "^2.15.3"
+pytest-xdist = "^3.8.0"
+pytest-rerunfailures = "^16.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -24,3 +26,9 @@ dev = [
     "ruff>=0.14.14",
 ]
 
+[tool.pytest.ini_options]
+addopts = """
+        --alluredir=allure-results
+        -n=3
+        --reruns=2 --reruns-delay=10
+        """

@@ -10,6 +10,25 @@
 * Daily smoke run (scheduled) + manual run: `.github/workflows/smoke.yml`
 * Regression run on `push`/`pull_request` + manual run: `.github/workflows/regression.yml`
 
+## Негативні тести (коротко)
+Покриваємо перевірки на:
+* відсутні або порожні обовʼязкові поля;
+* неправильні типи даних і формат значень;
+* невалідні/несумісні значення (діапазони, дати, маски);
+* неіснуючі або некоректні `id` (404/400);
+* неавторизований доступ і невалідні токени (401/403);
+* дублікати/конфлікти при створенні (409).
+
+## Ретраї та запуск у потоках
+* Ретраї: `pytest-rerunfailures` (за замовчуванням `--reruns=2 --reruns-delay=10`).
+* Паралельний запуск: `pytest-xdist` (за замовчуванням `-n=3`).
+* Перевизначення локально:
+  * `pytest -n auto --reruns 0`
+  * `pytest tests/smoke -n 2 --reruns 1 --reruns-delay 5`
+
+## Allure звіти
+* Результати тестів пишуться у `allure-results`.
+* У CI звіт генерується Allure Report 3.
 
 ## The following functionality is covered by autotests:
 
