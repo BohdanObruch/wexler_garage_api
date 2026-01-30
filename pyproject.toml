@@ -12,8 +12,6 @@ pydantic = "^2.10.5"
 lorem = "0.1.1"
 python-dotenv = "^1.0.1"
 curlify = "^3.0.0"
-
-[tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
 allure-pytest = "^2.15.3"
 
