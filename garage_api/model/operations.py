@@ -5,9 +5,10 @@ import random
 class Operations:
     @staticmethod
     def random_operations_id(token):
-        response = garage().get('/operations/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/operations/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             list_id = []
             for i in response.json()["results"]:
                 list_id.append(i["id"])
@@ -16,9 +17,10 @@ class Operations:
 
     @staticmethod
     def operations_is_not_finish(token):
-        response = garage().get('/operations/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/operations/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             list_id = []
             for i in response.json()["results"]:
                 if i["operation_status"] != "finished":
@@ -29,9 +31,10 @@ class Operations:
 
     @staticmethod
     def operations_is_in_progress(token):
-        response = garage().get('/operations/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/operations/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             list_id = []
             for i in response.json()["results"]:
                 if i["operation_status"] == "started":
@@ -44,9 +47,10 @@ class Operations:
 
     @staticmethod
     def random_operations_init(token):
-        response = garage().get('/operations/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/operations/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             results = response.json()["results"]
             result_pairs = []
             for result in results:
@@ -59,9 +63,10 @@ class Operations:
 
     @staticmethod
     def list_of_paid_transactions(token):
-        response = garage().get('/operations/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/operations/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             list_payment_id = set()
             for i in response.json()["results"]:
                 if i["payment"] is not None:

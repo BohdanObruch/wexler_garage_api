@@ -5,12 +5,11 @@ import random
 class Customers:
     @staticmethod
     def random_customer_id(token):
-        headers = {
-            'Authorization': 'Bearer ' + token[0]
-        }
-        response = garage().get('/customers/',
-                                headers=headers,
-                                )
+        headers = {"Authorization": "Bearer " + token[0]}
+        response = garage().get(
+            "/customers/",
+            headers=headers,
+        )
         list_id = []
         for i in response.json()["results"]:
             list_id.append(i["id"])

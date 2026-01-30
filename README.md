@@ -1,5 +1,15 @@
 # Automation project according to the Api documentation in swagger in Python and the **request** library. 
 
+## Test structure
+
+* Smoke tests: `tests/smoke`
+* Regression tests: `tests/regress`
+
+## CI runs (GitHub Actions)
+
+* Daily smoke run (scheduled) + manual run: `.github/workflows/smoke.yml`
+* Regression run on `push`/`pull_request` + manual run: `.github/workflows/regression.yml`
+
 
 ## The following functionality is covered by autotests:
 
@@ -120,14 +130,13 @@ Local Launch:
 ```
 pytest .
 ```
-If you uses TMS Testomat:
-
-Add the Testomat variable to the environment variables of the PC
+Smoke only:
 ```
-set TESTOMATIO=api_key 
-
-pytest --analyzer add 
-pytest --analyzer sync
+pytest tests/smoke
+```
+Regression only:
+```
+pytest tests/regress
 ```
 Remote launch:
 ```
@@ -137,35 +146,6 @@ pip install poetry
 poetry install
 poetry run pytest
 ```
-If you uses TMS Testomat:
-```
-python3 -m venv .venv
-. .venv/bin/activate
-pip install poetry
-poetry install
-TESTOMATIO=api_key pytest --analyzer sync
-```
-<br>
-
-## Testomat overview
-> Here are the results of test execution.  
-<p align="center">
-<img src="resources/images/test_runs.JPG" alt="Testomat Report"/>
-</p>
-<br>
-
-## Testomat test result
-> Results of running tests with added Report Notifications to email
-<p align="center">
-<img src="resources/images/screencapture-mail.png" alt="Testomat Report"/>
-</p>
-
-## Dashboard 
-> Dashboard with the tests on Testomat.io
-<p align="center">
-<img src="resources/images/dashboard.JPG" alt="Testomat project dashbord"/>
-</p>
-
 <br>
 
 

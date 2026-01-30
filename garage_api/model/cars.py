@@ -5,12 +5,11 @@ import random
 class Cars:
     @staticmethod
     def random_car_owner(token):
-        headers = {
-            'Authorization': 'Bearer ' + token[0]
-        }
-        response = garage().get('/cars/',
-                                headers=headers,
-                                )
+        headers = {"Authorization": "Bearer " + token[0]}
+        response = garage().get(
+            "/cars/",
+            headers=headers,
+        )
 
         unique_ids = set()
 
@@ -21,12 +20,11 @@ class Cars:
 
     @staticmethod
     def random_car_id(token):
-        headers = {
-            'Authorization': 'Bearer ' + token[0]
-        }
-        response = garage().get('/cars/',
-                                headers=headers,
-                                )
+        headers = {"Authorization": "Bearer " + token[0]}
+        response = garage().get(
+            "/cars/",
+            headers=headers,
+        )
         list_id = []
         for i in response.json()["results"]:
             list_id.append(i["id"])

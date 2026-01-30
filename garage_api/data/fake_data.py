@@ -7,20 +7,23 @@ fake = Faker()
 
 def random_cars(token):
     owner = app.cars.random_car_owner(token)
-    plate_number = ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(8))
+    plate_number = "".join(
+        random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") for _ in range(8)
+    )
     brand = fake.company()
     model = fake.street_suffix()
     engine_number_length = random.randint(10, 17)
-    engine_number = ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(engine_number_length))
+    engine_number = "".join(
+        random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        for _ in range(engine_number_length)
+    )
 
     data = {
         "plate_number": plate_number,
         "brand": brand,
         "model": model,
         "engine_number": engine_number,
-        "car_owner": owner
+        "car_owner": owner,
     }
     return data
 
@@ -39,7 +42,7 @@ def random_customers():
         "last_name": last_name,
         "email": email,
         "age": age,
-        "city": city
+        "city": city,
     }
     return data
 
@@ -47,18 +50,13 @@ def random_customers():
 def random_services():
     service_name = fake.sentence(nb_words=2)
     service_cost = round(random.uniform(10.00, 99.00), 2)
-    data = {
-        "service_name": service_name,
-        "service_cost_usd": service_cost
-    }
+    data = {"service_name": service_name, "service_cost_usd": service_cost}
     return data
 
 
 def random_discount():
     discount = random.randint(1, 99)
-    data = {
-        "discount": discount
-    }
+    data = {"discount": discount}
     return data
 
 
@@ -74,15 +72,17 @@ def random_operations(token):
         "operation_status": "started",
         "car": car,
         "service": service,
-        "payment": id_payment
+        "payment": id_payment,
     }
     return data
 
 
 def random_car_engines():
     engine_number_length = random.randint(10, 17)
-    engine_number = ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(engine_number_length))
+    engine_number = "".join(
+        random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        for _ in range(engine_number_length)
+    )
     volume = round(random.uniform(1.0, 9.0), 1)
 
     origin = None
@@ -95,6 +95,6 @@ def random_car_engines():
         "engine_number": engine_number,
         "volume": volume,
         "origin": origin,
-        "production_year": int(fake.year())
+        "production_year": int(fake.year()),
     }
     return data

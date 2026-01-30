@@ -1,4 +1,4 @@
-name: Manual run tests
+name: Regression tests
 
 on:
   push:
@@ -7,13 +7,10 @@ on:
   pull_request:
     branches:
       - main
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
 
-
 jobs:
-  build:
+  regression:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,11 +38,37 @@ jobs:
           && poetry config virtualenvs.create false \
           && poetry install --no-interaction --no-ansi --no-root
 
-      - name: Run tests
-        run: poetry run pytest
+      - name: Run regression tests
+        run: poetry run pytest tests/regress --alluredir=allure-results
         continue-on-error: true
         env:
           API_URL: ${{ secrets.API_URL }}
           API_AUTHORIZATION: ${{ secrets.API_AUTHORIZATION }}
           API_USERNAME: ${{ secrets.USERNAME }}
           API_PASSWORD: ${{ secrets.PASSWORD }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 20
+
+      - uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Publish Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history

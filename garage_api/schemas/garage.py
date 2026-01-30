@@ -1,266 +1,249 @@
-from voluptuous import Schema, Any
+from __future__ import annotations
 
-administration = Schema({
-    "status": str,
-    "message": str
-})
+from typing import Optional, Union
 
-user_login = Schema({
-    "refresh": str,
-    "access": str
-})
+from pydantic import BaseModel, ConfigDict, RootModel
 
-refresh_token = Schema({
-    "access": str
-})
 
-car_engines_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": int,
-            "engine_number": str,
-            "volume": Any(int, float, None),
-            "origin": Any(str, None),
-            "production_year": Any(int, None),
-        }
-    ]
-})
+class ApiModel(BaseModel):
+    model_config = ConfigDict(extra="ignore")
 
-car_engines = Schema({
-    "id": int,
-    "engine_number": str,
-    "volume": Any(int, float, None),
-    "origin": Any(str, None),
-    "production_year": Any(int, None),
-})
 
-cars_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": int,
-            "car_owner": {
-                "id": int,
-                "passport_number": int,
-                "first_name": Any(str, None),
-                "last_name": Any(str, None),
-                "email": Any(str, None),
-                "age": Any(int, None),
-                "city": Any(str, None)
-            },
-            "plate_number": str,
-            "brand": Any(str, None),
-            "model": Any(str, None),
-            "engine_number": str
-        }
-    ]
-})
+class Administration(ApiModel):
+    status: str
+    message: str
 
-car = Schema({
-    "id": int,
-    "plate_number": str,
-    "brand": Any(str, None),
-    "model": Any(str, None),
-    "engine_number": Any(str, None),
-    "car_owner": int
-})
 
-car_info = Schema({
-    "id": int,
-    "car_owner": {
-        "id": int,
-        "passport_number": int,
-        "first_name": Any(str, None),
-        "last_name": Any(str, None),
-        "email": Any(str, None),
-        "age": int,
-        "city": Any(str, None)
-    },
-    "plate_number": str,
-    "brand": Any(str, None),
-    "model": Any(str, None),
-    "engine_number": Any(str, None)
-})
+class UserLogin(ApiModel):
+    refresh: str
+    access: str
 
-customers_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": int,
-            "passport_number": int,
-            "first_name": Any(str, None),
-            "last_name": Any(str, None),
-            "email": Any(str, None),
-            "age": Any(int, None),
-            "city": Any(str, None)
-        }
-    ]
-})
 
-customer = Schema({
-    "id": int,
-    "passport_number": int,
-    "first_name": Any(str, None),
-    "last_name": Any(str, None),
-    "email": Any(str, None),
-    "age": Any(int, None),
-    "city": Any(str, None)
-})
+class RefreshToken(ApiModel):
+    access: str
 
-root = Schema({
-    "cars": str,
-    "car_engines": str,
-    "customers": str,
-    "operations": str,
-    "services": str,
-    "payments": str
-})
 
-payments_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": Any(int, None),
-            "amount": Any(str, None),
-            "currency": Any(str, None),
-            "timestamp": Any(str, None),
-            "InvId": Any(str, None),
-            "trsid": Any(str, None),
-            "custom": Any(str, None),
-            "signature": Any(str, None),
-            "status": Any(str, None)
-        }
-    ]
-})
+class CarEngine(ApiModel):
+    id: int
+    engine_number: str
+    volume: Union[int, float, None]
+    origin: Optional[str]
+    production_year: Optional[int]
 
-payments = Schema({
-    "id": int,
-    "amount": str,
-    "currency": str,
-    "timestamp": str,
-    "InvId": str,
-    "trsid": str,
-    "custom": str,
-    "signature": Any(str, None),
-    "status": str
-})
 
-payments_sucsess = Schema({
-    "status": str,
-    "message": str
-})
+class CarEnginesList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[CarEngine]
 
-operations_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": int,
-            "car": {
-                "id": int,
-                "car_owner": {
-                    "id": int,
-                    "passport_number": int,
-                    "first_name": str,
-                    "last_name": str,
-                    "email": str,
-                    "age": int,
-                    "city": str
-                },
-                "plate_number": str,
-                "brand": str,
-                "model": str,
-                "engine_number": str
-            },
-            "service": {
-                "id": int,
-                "service_name": str,
-                "service_cost_usd": Any(float, int, None),
-            },
-            "payment_status": str,
-            "can_be_done": bool,
-            "final_price": str,
-            "operation_status": str,
-            "operation_timestamp": str,
-            "payment": Any(int, None)
-        },
-    ]
-})
 
-operations = Schema({
-    "id": int,
-    "final_price": str,
-    "operation_status": Any(str, None),
-    "operation_timestamp": str,
-    "car": int,
-    "service": int,
-    "payment": Any(int, None)
-})
+class Customer(ApiModel):
+    id: int
+    passport_number: int
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: Optional[str]
+    age: Optional[int]
+    city: Optional[str]
 
-operation_details = Schema({
-    "id": int,
-    "car": {
-        "id": int,
-        "car_owner": {
-            "id": int,
-            "passport_number": int,
-            "first_name": str,
-            "last_name": str,
-            "email": str,
-            "age": int,
-            "city": str
-        },
-        "plate_number": str,
-        "brand": str,
-        "model": str,
-        "engine_number": str
-    },
-    "service": {
-        "id": int,
-        "service_name": str,
-        "service_cost_usd": Any(float, None),
-    },
-    "payment_status": str,
-    "can_be_done": bool,
-    "final_price": str,
-    "operation_status": str,
-    "operation_timestamp": str,
-    "payment": Any(int, None)
-})
 
-services_list = Schema({
-    "count": int,
-    "next": Any(str, None),
-    "previous": Any(str, None),
-    "results": [
-        {
-            "id": int,
-            "service_name": str,
-            "service_cost_usd": Any(float, int, None),
-        }
-    ]
-})
+class CustomerInfo(ApiModel):
+    id: int
+    passport_number: int
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: Optional[str]
+    age: int
+    city: Optional[str]
 
-service = Schema({
-    "id": int,
-    "service_name": Any(str, None),
-    "service_cost_usd": Any(float, None),
-})
 
-discont_service = Schema([
-        {
-            "id": int,
-            "service_name": Any(str, None),
-            "service_cost_usd": Any(float, None),
-        }
-    ])
+class CustomerStrict(ApiModel):
+    id: int
+    passport_number: int
+    first_name: str
+    last_name: str
+    email: str
+    age: int
+    city: str
+
+
+class CarsListItem(ApiModel):
+    id: int
+    car_owner: Customer
+    plate_number: str
+    brand: Optional[str]
+    model: Optional[str]
+    engine_number: str
+
+
+class CarsList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[CarsListItem]
+
+
+class Car(ApiModel):
+    id: int
+    plate_number: str
+    brand: Optional[str]
+    model: Optional[str]
+    engine_number: Optional[str]
+    car_owner: int
+
+
+class CarInfo(ApiModel):
+    id: int
+    car_owner: CustomerInfo
+    plate_number: str
+    brand: Optional[str]
+    model: Optional[str]
+    engine_number: Optional[str]
+
+
+class CustomersList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[Customer]
+
+
+class Root(ApiModel):
+    cars: str
+    car_engines: str
+    customers: str
+    operations: str
+    services: str
+    payments: str
+
+
+class PaymentListItem(ApiModel):
+    id: Optional[int]
+    amount: Optional[str]
+    currency: Optional[str]
+    timestamp: Optional[str]
+    InvId: Optional[str]
+    trsid: Optional[str]
+    custom: Optional[str]
+    signature: Optional[str]
+    status: Optional[str]
+
+
+class PaymentsList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[PaymentListItem]
+
+
+class Payment(ApiModel):
+    id: int
+    amount: str
+    currency: str
+    timestamp: str
+    InvId: str
+    trsid: str
+    custom: str
+    signature: Optional[str]
+    status: str
+
+
+class PaymentsSuccess(ApiModel):
+    status: str
+    message: str
+
+
+class OperationCar(ApiModel):
+    id: int
+    car_owner: CustomerStrict
+    plate_number: str
+    brand: str
+    model: str
+    engine_number: str
+
+
+class OperationService(ApiModel):
+    id: int
+    service_name: str
+    service_cost_usd: Union[float, int, None]
+
+
+class OperationListItem(ApiModel):
+    id: int
+    car: OperationCar
+    service: OperationService
+    payment_status: str
+    can_be_done: bool
+    final_price: str
+    operation_status: str
+    operation_timestamp: str
+    payment: Optional[int]
+
+
+class OperationsList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[OperationListItem]
+
+
+class Operation(ApiModel):
+    id: int
+    final_price: str
+    operation_status: Optional[str]
+    operation_timestamp: str
+    car: int
+    service: int
+    payment: Optional[int]
+
+
+class OperationDetails(ApiModel):
+    id: int
+    car: OperationCar
+    service: OperationService
+    payment_status: str
+    can_be_done: bool
+    final_price: str
+    operation_status: str
+    operation_timestamp: str
+    payment: Optional[int]
+
+
+class Service(ApiModel):
+    id: int
+    service_name: Optional[str]
+    service_cost_usd: Union[float, int, None]
+
+
+class ServicesList(ApiModel):
+    count: int
+    next: Optional[str]
+    previous: Optional[str]
+    results: list[Service]
+
+
+class DiscountService(RootModel[list[Service]]):
+    pass
+
+
+administration = Administration
+user_login = UserLogin
+refresh_token = RefreshToken
+car_engines_list = CarEnginesList
+car_engines = CarEngine
+cars_list = CarsList
+car = Car
+car_info = CarInfo
+customers_list = CustomersList
+customer = Customer
+root = Root
+payments_list = PaymentsList
+payments = Payment
+payments_sucsess = PaymentsSuccess
+operations_list = OperationsList
+operations = Operation
+operation_details = OperationDetails
+services_list = ServicesList
+service = Service
+discont_service = DiscountService

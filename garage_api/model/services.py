@@ -5,9 +5,10 @@ import random
 class Services:
     @staticmethod
     def random_service_id(token):
-        response = garage().get('/services/',
-                                headers={'Authorization': 'Bearer ' + token[0]})
-        if response.json()['count'] > 0:
+        response = garage().get(
+            "/services/", headers={"Authorization": "Bearer " + token[0]}
+        )
+        if response.json()["count"] > 0:
             list_id = []
             for i in response.json()["results"]:
                 if i["service_cost_usd"] is not None:
