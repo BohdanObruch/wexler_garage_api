@@ -1,1 +1,1 @@
-{"id":"8894e56e594a44b6f19f36ead3437b0b","fullName":"tests.smoke.test_cars.TestCars#test_list_cars","name":"test_list_cars[limit_1_offset_1]","status":"passed","testResultsByEnv":{"default":"c180cb341a63c1a5590702f469523249"}}
+{"id":"8894e56e594a44b6f19f36ead3437b0b","fullName":"tests.smoke.test_cars.TestCars#test_list_cars","name":"test_list_cars[no_params]","status":"passed","testResultsByEnv":{"default":"f6da8acb8750a3c3c886ce45ea4a51a4"}}
