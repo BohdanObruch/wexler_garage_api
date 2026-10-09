@@ -1,1 +1,1 @@
-{"id":"1c7b3ee034827abf103cb002c78f06f5.d41d8cd98f00b204e9800998ecf8427e","fullName":"tests.smoke.test_root.TestRoot#test_root_list","name":"test_root_list","status":"broken","testResultsByEnv":{"default":"0646944fe8a6e79d817782fc4f05e169"}}
+{"id":"1c7b3ee034827abf103cb002c78f06f5.d41d8cd98f00b204e9800998ecf8427e","fullName":"tests.smoke.test_root.TestRoot#test_root_list","name":"test_root_list","status":"passed","testResultsByEnv":{"default":"6b4b123b5e2fc1288dfc677830d5dce7"}}
