@@ -1,1 +1,1 @@
-{"id":"b44ada646afaf99a8987209e2ef7472f.ee5dc7cbb5ce803674abcd3fce2b5aa6","fullName":"tests.smoke.test_payments.TestPayments#test_payments_list","name":"test_payments_list[limit_1]","status":"passed","testResultsByEnv":{"default":"f578ad81d692cce6669ffbd988e33710"}}
+{"id":"b44ada646afaf99a8987209e2ef7472f.ee5dc7cbb5ce803674abcd3fce2b5aa6","fullName":"tests.smoke.test_payments.TestPayments#test_payments_list","name":"test_payments_list[limit_1]","status":"passed","testResultsByEnv":{"default":"5503c996150853321ad2411a39402983"}}
