@@ -1,1 +1,1 @@
-{"id":"8a699ad27be20f5c429754301a88f902.ee5dc7cbb5ce803674abcd3fce2b5aa6","fullName":"tests.smoke.test_services.TestServices#test_services_list","name":"test_services_list[limit_1]","status":"passed","testResultsByEnv":{"default":"127339d107893aca5f70d70b46e240fa"}}
+{"id":"8a699ad27be20f5c429754301a88f902.ee5dc7cbb5ce803674abcd3fce2b5aa6","fullName":"tests.smoke.test_services.TestServices#test_services_list","name":"test_services_list[limit_1]","status":"broken","testResultsByEnv":{"default":"ef71eeb44d702414b9d893cc0ae61549"}}
